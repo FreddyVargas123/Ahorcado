@@ -1,0 +1,58 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- Vista para mostrar el progreso de la palabra -->
+    <TextView
+        android:id="@+id/tv_word"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="____"
+        android:textSize="30sp"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <!-- Vista para mostrar el estado del ahorcado -->
+    <TextView
+        android:id="@+id/tv_hangman_state"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Estado del Ahorcado"
+        android:textSize="20sp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/tv_word"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <!-- Botones de letras para ingresar -->
+    <GridLayout
+        android:id="@+id/gl_keyboard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_hangman_state"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="16dp"
+        android:columnCount="7"
+        android:rowCount="4"
+        android:layout_margin="8dp"
+        android:gravity="center">
+
+        <!-- Botones para las letras (A-Z) -->
+        <Button android:text="A" android:id="@+id/btn_A" style="@style/LetterButton" />
+        <Button android:text="B" android:id="@+id/btn_B" style="@style/LetterButton" />
+        <Button android:text="C" android:id="@+id/btn_C" style="@style/LetterButton" />
+        <Button android:text="D" android:id="@+id/btn_D" style="@style/LetterButton" />
+        <Button android:text="E" android:id="@+id/btn_E" style="@style/LetterButton" />
+        <!-- Agregar botones para el resto del alfabeto... -->
+    </GridLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

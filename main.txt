@@ -1,0 +1,60 @@
+package com.example.ahorcado
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var wordToGuess: String
+    private lateinit var displayedWord: CharArray
+    private var incorrectGuesses = 0
+    private val maxGuesses = 6
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val tvWord = findViewById<TextView>(R.id.tv_word)
+        val tvHangmanState = findViewById<TextView>(R.id.tv_hangman_state)
+
+        // Palabra a adivinar
+        wordToGuess = "KOTLIN"
+        displayedWord = CharArray(wordToGuess.length) { '_' }
+        tvWord.text = String(displayedWord)
+
+        // Asignar listener a cada botón de letra
+        val letters = listOf('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z')
+        letters.forEach { letter ->
+            val buttonId = resources.getIdentifier("btn_$letter", "id", packageName)
+            val letterButton = findViewById<Button>(buttonId)
+            letterButton.setOnClickListener {
+                checkLetter(letter, tvWord, tvHangmanState)
+                letterButton.isEnabled = false
+            }
+        }
+    }
+
+    private fun checkLetter(letter: Char, tvWord: TextView, tvHangmanState: TextView) {
+        if (wordToGuess.contains(letter)) {
+            for (i in wordToGuess.indices) {
+                if (wordToGuess[i] == letter) {
+                    displayedWord[i] = letter
+                }
+            }
+            tvWord.text = String(displayedWord)
+
+            if (!String(displayedWord).contains('_')) {
+                tvHangmanState.text = "¡Ganaste!"
+            }
+        } else {
+            incorrectGuesses++
+            tvHangmanState.text = "Errores: $incorrectGuesses/$maxGuesses"
+
+            if (incorrectGuesses == maxGuesses) {
+                tvHangmanState.text = "¡Perdiste! La palabra era: $wordToGuess"
+            }
+        }
+    }
+}
